@@ -1,0 +1,74 @@
+<!doctype html>
+<html>
+<head>
+  <title>vistem</title>
+  <meta charset="utf-8">
+  <meta name="keyword" content="video, description, describe, caption">
+  <meta name="description" content="Generate video description">
+  <meta name="author" content="Wipro Digital">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://fonts.googleapis.com/css?family=Iceland" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/ratchet/2.0.2/css/ratchet.css" rel="stylesheet"/>
+  <link rel="stylesheet" href="./css/bootstrap.min.css">
+  <link href="./css/style.css" rel="stylesheet">
+  
+
+</head>
+<body>
+  <h1 class="text-custom-gray text-center">Video Caption Generator</h1>
+  <img align="right" style="opacity:1" src="./media/images/vistem.jpg">
+  
+  <div>
+  <video style="display: none;" width="400" controls></video>
+  </div>
+  
+  <p class="text-custom-gray" align="right" style="margin-top:200px;font-size:25px;line-height:250%;">
+  	Hello, I am vistem>
+  <p>
+  <p class="text-custom-gray" align="right" style="font-size:25px;line-height:80%;">
+  	I have vision like you, If you want to <br>check give me a video>
+  </p>
+  <p class="text-custom-gray" align="right" style="font-size:25px;line-height:250%;">
+	I tell you what it is,....<br>
+  </p>
+  
+  <label for="videoUpload" class="btn btn-outlined" style="margin-left:330px;background-color:gray;color:white;">Video</label>
+  <input type="file" id="videoUpload" accept="video/*" style="display: none">
+  
+  <p id="message"></p>
+  
+</body>
+ <script src="./js/jquery.min.js"></script>
+ <script src="./js/bootstrap.min.js"></script>
+ <script>
+ (function localFileVideoPlayer() {
+	'use strict'
+  var URL = window.URL || window.webkitURL
+  var displayMessage = function (message, isError) {
+    var element = document.querySelector('#message')
+    element.innerHTML = message
+    element.className = isError ? 'error' : 'info'
+  }
+  var playSelectedFile = function (event) {
+    var file = this.files[0]
+    var type = file.type
+    var videoNode = document.querySelector('video')
+    var canPlay = videoNode.canPlayType(type)
+    if (canPlay === '') canPlay = 'no'
+    var message = 'Can play type "' + type + '": ' + canPlay
+    var isError = canPlay === 'no'
+    displayMessage(message, isError)
+
+    if (isError) {
+      return
+    }
+
+    var fileURL = URL.createObjectURL(file)
+	videoNode.style="margin-left:330px;display: inline;"
+    videoNode.src = fileURL
+  }
+  var inputNode = document.querySelector('input')
+  inputNode.addEventListener('change', playSelectedFile, false)
+})()
+  </script>
+</html>
